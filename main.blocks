@@ -1,0 +1,46 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id="9JIIb6q;6:+`Kg0C**OG" x="0" y="0"><statement name="HANDLER"><block type="device_show_leds" id=".cqSo]VJxpIl-DHK,l?Y"><field name="LEDS">`
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        # # # # #
+        `</field><next><block type="dojobot_bot_init" id="wM6V:Swa)(N1X*84_u16"></block></next></block></statement></block><block type="device_forever" id="31c?kEvgAQ]t|HuQP,Pm" x="230" y="-2"><statement name="HANDLER"><block type="device_plot_bar_graph" id="0{^4v)!Q3@pp{[s*oz;U"><mutation xmlns="http://www.w3.org/1999/xhtml" _expanded="1" _input_init="true"></mutation><comment pinned="false" h="80" w="160">if (dojobot.bot_input(0) &lt; 2000) {
+led.plot(0, 0)
+} else {
+led.unplot(0, 0)
+}
+if (dojobot.bot_input(1) &lt; 2000) {
+led.plot(0, 1)
+} else {
+led.unplot(0, 1)
+}
+if (dojobot.bot_input(2) &lt; 2000) {
+led.plot(0, 2)
+} else {
+led.unplot(0, 2)
+}
+if (dojobot.bot_input(3) &lt; 2000) {
+led.plot(0, 3)
+} else {
+led.unplot(0, 3)
+}
+if (dojobot.bot_input(4) &lt; 2000) {
+led.plot(1, 0)
+} else {
+led.unplot(1, 0)
+}
+if (dojobot.bot_input(5) &lt; 2000) {
+led.plot(1, 1)
+} else {
+led.unplot(1, 1)
+}
+if (dojobot.bot_input(6) &lt; 2000) {
+led.plot(1, 2)
+} else {
+led.unplot(1, 2)
+}
+if (dojobot.bot_input(7) &lt; 2000) {
+led.plot(1, 3)
+} else {
+led.unplot(1, 3)
+}</comment><value name="value"><block type="dojobot_bot_input" id="jVtEM2S,=|g?H5=6|XBC"><value name="id"><shadow type="math_number" id=".-saJt0KJuU|ws{8VLw{"><field name="NUM">2</field></shadow></value></block></value><value name="high"><shadow type="math_number" id="d!pW`)VQ/^_1^(zZYM]!"><field name="NUM">100</field></shadow></value><value name="valueToConsole"><shadow type="toggleOnOff" id="+FS#;YGo_Vt@.2:03+QH"><field name="on">true</field></shadow></value><next><block type="device_set_digital_pin" id=")+k^XB$Oio#wEj@uZQ{="><field name="name">DigitalPin.P9</field><value name="value"><shadow type="math_number_minmax" id="z+4zu0nn1{eGg{9M9WON"><mutation min="0" max="1" label="Value" precision="0"></mutation><field name="SLIDER">1</field></shadow></value><next><block type="controls_if" id="F9AD/@mb(s$ulNUvlVey"><mutation else="1"></mutation><value name="IF0"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow><block type="device_get_button2" id="/xP~F{f#p*[]@fmgQg-9"><field name="NAME">Button.A</field></block></value><statement name="DO0"><block type="device_plot" id="yCRpJMvw8}ryb]%b{!Gm"><value name="x"><shadow type="math_number_minmax" id="}.?-RU*0%U2m,36+G~?("><mutation min="0" max="4" label="X" precision="1"></mutation><field name="SLIDER">4</field></shadow></value><value name="y"><shadow type="math_number_minmax" id="{zmAg/|7V,^z/id}XS|O"><mutation min="0" max="4" label="Y" precision="1"></mutation><field name="SLIDER">4</field></shadow></value></block></statement><statement name="ELSE"><block type="device_unplot" id="aB=0?aSDN~b~J08lkP64"><value name="x"><shadow type="math_number_minmax" id="PE3/BZ(fz23wbFn0u-B1"><mutation min="0" max="4" label="X" precision="1"></mutation><field name="SLIDER">4</field></shadow></value><value name="y"><shadow type="math_number_minmax" id="$5pKE:u7mmaWr+6iqz^d"><mutation min="0" max="4" label="Y" precision="1"></mutation><field name="SLIDER">4</field></shadow></value></block></statement><next><block type="controls_if" id="_xRyKT:|s1f3*SZJvROc"><mutation else="1"></mutation><value name="IF0"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow><block type="device_get_button2" id="?hE)~2,wD}OM-A46tHu{"><field name="NAME">Button.B</field></block></value><statement name="DO0"><block type="device_plot" id="F^jsRJP$;+ECQS.=MN(L"><value name="x"><shadow type="math_number_minmax" id="5-eDQ2XSN:e/,3p^qc^1"><mutation min="0" max="4" label="X" precision="1"></mutation><field name="SLIDER">4</field></shadow></value><value name="y"><shadow type="math_number_minmax" id="N04ilnO=?nc}Ra4CgMF|"><mutation min="0" max="4" label="Y" precision="1"></mutation><field name="SLIDER">3</field></shadow></value></block></statement><statement name="ELSE"><block type="device_unplot" id="Eii-5pZ8P?0+fHBYIvk1"><value name="x"><shadow type="math_number_minmax" id="/K/chRxz9Qmc#!}c!cPB"><mutation min="0" max="4" label="X" precision="1"></mutation><field name="SLIDER">4</field></shadow></value><value name="y"><shadow type="math_number_minmax" id="55Gq~;*AFHkdhvmEInNe"><mutation min="0" max="4" label="Y" precision="1"></mutation><field name="SLIDER">3</field></shadow></value></block></statement></block></next></block></next></block></next></block></statement></block></xml>
