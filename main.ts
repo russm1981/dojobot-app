@@ -1,3 +1,4 @@
+
  let MODE = 0
 let S_RIGHT = 0
 let ROTATE_POSITION = 0
@@ -15,6 +16,7 @@ let inVER = 0
 let inKNOB = 0
 let COLOUR = 0
 let inputval = 0
+
 let S_LEFT = 6
 let S_ROTATE = 1
 let S_JAW1 = 5
@@ -26,6 +28,7 @@ let A_RIGHTJOY_Y = 4
 let A_RIGHTJOY_X = 5
 let A_KNOB = 6
 let A_VERSION = 7
+
 serial.redirect(
 SerialPin.USB_TX,
 SerialPin.USB_RX,
@@ -46,7 +49,9 @@ if (input.buttonIsPressed(Button.A)) {
     dojobot.bot_led_colour(2, 16777215)
     dojobot.bot_led_colour(3, 16764159)
 } else {
+
     basic.showString("v3.0")
+
     basic.showIcon(IconNames.Heart)
     music.play(music.builtinPlayableSoundEffect(soundExpression.hello), music.PlaybackMode.UntilDone)
     MODE = 1
@@ -101,6 +106,7 @@ basic.forever(function () {
         inKNOB = dojobot.bot_input(A_KNOB)
         inVER = dojobot.bot_input(A_VERSION)
         serial.writeLine("" + (`OP LX${inJOYL_X} LY${inJOYL_Y} RX${inJOYR_X} RY${inJOYR_Y} S${inSLIDE} K${inKNOB} V${inVER}`))
+
         degrees_calc = 0
         inputval = inJOYL_Y
         if (inputval > 0) {
@@ -123,6 +129,7 @@ basic.forever(function () {
         }
         dojobot.bot_servo(S_LEFT, degrees_calc)
         serial.writeLine("" + (`LEFT Y input ${inJOYL_Y} degrees ${degrees_calc}`))
+
         degrees_calc = 0
         inputval = inJOYR_Y
         if (inputval > 0) {
