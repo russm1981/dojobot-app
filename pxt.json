@@ -4,7 +4,7 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "dojobot-block": "github:russm1981/russarm-test#master"
+        "dojo-block": "pub:42953-70754-92235-45229"
     },
     "files": [
         "main.blocks",
