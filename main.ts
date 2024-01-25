@@ -1,17 +1,22 @@
-let inputval = 0
-let MODE = 0
+
+ let MODE = 0
 let S_RIGHT = 0
-let COLOUR = 0
-let inKNOB = 0
-let inVER = 0
-let inSLIDE = 0
-let inJOYR_Y = 0
-let inJOYR_X = 0
-let inJOYL_Y = 0
-let inJOYL_X = 0
-let degrees_calc2 = 0
-let degrees_calc = 0
+let ROTATE_POSITION = 0
+let RIGHT_POSITION = 0
+let LEFT_POSITION = 0
 let amount_to_move = 0
+let degrees_calc = 0
+let degrees_calc2 = 0
+let inJOYL_X = 0
+let inJOYL_Y = 0
+let inJOYR_X = 0
+let inJOYR_Y = 0
+let inSLIDE = 0
+let inVER = 0
+let inKNOB = 0
+let COLOUR = 0
+let inputval = 0
+
 let S_LEFT = 6
 let S_ROTATE = 1
 let S_JAW1 = 5
@@ -23,15 +28,13 @@ let A_RIGHTJOY_Y = 4
 let A_RIGHTJOY_X = 5
 let A_KNOB = 6
 let A_VERSION = 7
-let LEFT_POSITION = 0
-let RIGHT_POSITION = 0
-let ROTATE_POSITION = 0
+
 serial.redirect(
 SerialPin.USB_TX,
 SerialPin.USB_RX,
 BaudRate.BaudRate9600
 )
-serial.writeString("Welcome to dojo:bot App v1")
+serial.writeString("Welcome to dojo:bot App v3")
 dojobot.bot_init()
 dojobot.bot_servo(S_LEFT, 90)
 dojobot.bot_servo(S_RIGHT, 90)
@@ -46,7 +49,9 @@ if (input.buttonIsPressed(Button.A)) {
     dojobot.bot_led_colour(2, 16777215)
     dojobot.bot_led_colour(3, 16764159)
 } else {
-    basic.showString("v4.0")
+
+    basic.showString("v3.0")
+
     basic.showIcon(IconNames.Heart)
     music.play(music.builtinPlayableSoundEffect(soundExpression.hello), music.PlaybackMode.UntilDone)
     MODE = 1
@@ -93,49 +98,38 @@ basic.forever(function () {
         let A_LEFTJOY_Y = 0
         // In normal operation
         // Transmit joystick functions onwards
-        inJOYL_X = dojobot.bot_input(A_LEFTJOY_X)
-        inJOYL_Y = dojobot.bot_input(A_LEFTJOY_Y)
-        inJOYR_X = dojobot.bot_input(A_RIGHTJOY_X)
-        inJOYR_Y = dojobot.bot_input(A_RIGHTJOY_Y)
+        inJOYL_X = dojobot.bot_input(A_LEFTJOY_X) - 2200
+        inJOYL_Y = dojobot.bot_input(A_LEFTJOY_Y) - 2200
+        inJOYR_X = dojobot.bot_input(A_RIGHTJOY_X) - 2200
+        inJOYR_Y = dojobot.bot_input(A_RIGHTJOY_Y) - 2200
         inSLIDE = dojobot.bot_input(A_SLIDE)
         inKNOB = dojobot.bot_input(A_KNOB)
         inVER = dojobot.bot_input(A_VERSION)
         serial.writeLine("" + (`OP LX${inJOYL_X} LY${inJOYL_Y} RX${inJOYR_X} RY${inJOYR_Y} S${inSLIDE} K${inKNOB} V${inVER}`))
+
+        degrees_calc = 0
         inputval = inJOYL_Y
-        //Joystick value is 0 to approx 4096, with 2200 being central point 
-        switch(inputval)
-        {
-            case > 3500:
-                //large movement in negative direction
-                amount_to_move = -3;
-                break;  //leaves the switch block
-            case > 3000:
-                //medium movement in negative direction
-                amount_to_move = -2;
-                break;  //leaves the switch block
-            case > 2300:
-                //small movement in negative direction
-                amount_to_move = -1;
-                break;  //leaves the switch block
-            //if it got here then value is <2300
-            case < 550:
-                //large movement in positive direction
-                amount_to_move = 3;
-                break;  //leaves the switch block
-            case < 1100:
-                //medium movement in positive direction
-                amount_to_move = 2;
-                break;  //leaves the switch block
-            case < 2100:
-                //small movement in positive direction
-                amount_to_move = 1;
-                break;  //leaves the switch block
-            default:
-                //got here if joystick near to centre 2100-2300, in which case Ignore
-                amount_to_move = 1;
+        if (inputval > 0) {
+            if (inputval < 100) {
+                degrees_calc = 90
+            } else {
+                inputval += 0 - 100
+                degrees_calc = Math.round(90 - inputval / 20)
+                Math.constrain(degrees_calc, 0, 90)
+            }
+        } else {
+            inputval *= -1
+            if (inputval < 100) {
+                degrees_calc = 90
+            } else {
+                inputval += 0 - 100
+                degrees_calc = Math.round(90 + inputval / 23.4)
+                Math.constrain(degrees_calc, 90, 180)
+            }
         }
         dojobot.bot_servo(S_LEFT, degrees_calc)
-        serial.writeLine("" + (`LEFT Y input ${inJOYL_Y} movement ${amount_to_move}`))
+        serial.writeLine("" + (`LEFT Y input ${inJOYL_Y} degrees ${degrees_calc}`))
+
         degrees_calc = 0
         inputval = inJOYR_Y
         if (inputval > 0) {
