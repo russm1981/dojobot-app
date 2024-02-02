@@ -1,5 +1,6 @@
 let inputval = 0
 let MODE = 0
+/*
 let S_RIGHT = 0
 let COLOUR = 0
 let inKNOB = 0
@@ -26,25 +27,30 @@ let A_VERSION = 7
 let LEFT_POSITION = 0
 let RIGHT_POSITION = 0
 let ROTATE_POSITION = 0
+*/
+
 serial.redirect(
 SerialPin.USB_TX,
 SerialPin.USB_RX,
 BaudRate.BaudRate9600
 )
-serial.writeString("Welcome to dojo:bot App v1")
-dojobot.bot_init()
-dojobot.bot_servo(S_LEFT, 90)
-dojobot.bot_servo(S_RIGHT, 90)
-dojobot.bot_servo(S_ROTATE, 90)
-dojobot.bot_servo(S_JAW1, 90)
-dojobot.bot_servo(S_JAW2, 90)
+serial.writeString("Welcome to dojo:bot App v4.0")
+dojo.bot_init()
+dojo.bot_servo(S_LEFT, 90)
+dojo.bot_servo(S_RIGHT, 90)
+dojo.bot_servo(S_ROTATE, 90)
+dojo.bot_servo(S_JAW1, 90)
+dojo.bot_servo(S_JAW2, 90)
+
 if (input.buttonIsPressed(Button.A)) {
     basic.showIcon(IconNames.Square)
     music.play(music.builtinPlayableSoundEffect(soundExpression.slide), music.PlaybackMode.UntilDone)
     MODE = 0
-    dojobot.bot_led_colour(1, 16764159)
-    dojobot.bot_led_colour(2, 16777215)
-    dojobot.bot_led_colour(3, 16764159)
+
+    dojo.bot_led_colour(1, 16764159)
+    dojo.bot_led_colour(2, 16777215)
+    dojo.bot_led_colour(3, 16764159)
+
 } else {
     basic.showString("v4.0")
     basic.showIcon(IconNames.Heart)
@@ -103,37 +109,16 @@ basic.forever(function () {
         serial.writeLine("" + (`OP LX${inJOYL_X} LY${inJOYL_Y} RX${inJOYR_X} RY${inJOYR_Y} S${inSLIDE} K${inKNOB} V${inVER}`))
         inputval = inJOYL_Y
         //Joystick value is 0 to approx 4096, with 2200 being central point 
-        switch(inputval)
-        {
-            case > 3500:
-                //large movement in negative direction
-                amount_to_move = -3;
-                break;  //leaves the switch block
-            case > 3000:
-                //medium movement in negative direction
-                amount_to_move = -2;
-                break;  //leaves the switch block
-            case > 2300:
-                //small movement in negative direction
-                amount_to_move = -1;
-                break;  //leaves the switch block
-            //if it got here then value is <2300
-            case < 550:
-                //large movement in positive direction
-                amount_to_move = 3;
-                break;  //leaves the switch block
-            case < 1100:
-                //medium movement in positive direction
-                amount_to_move = 2;
-                break;  //leaves the switch block
-            case < 2100:
-                //small movement in positive direction
-                amount_to_move = 1;
-                break;  //leaves the switch block
-            default:
-                //got here if joystick near to centre 2100-2300, in which case Ignore
-                amount_to_move = 1;
-        }
+
+        if (inputval > 3500) amount_to_move = -3;
+        else if (inputval > 3500) amount_to_move = -3;
+        else if (inputval > 3000) amount_to_move = -2;
+        else if (inputval > 2300) amount_to_move = -1;
+        else if (inputval < 550) amount_to_move = 3;
+        else if (inputval < 1100) amount_to_move = 2;
+        else if (inputval < 2100) amount_to_move = 1;
+        else amount_to_move = 0;
+        
         dojobot.bot_servo(S_LEFT, degrees_calc)
         serial.writeLine("" + (`LEFT Y input ${inJOYL_Y} movement ${amount_to_move}`))
         degrees_calc = 0
